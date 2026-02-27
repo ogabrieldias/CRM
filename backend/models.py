@@ -101,10 +101,13 @@ class Pagamento(db.Model):
     status_pagamento = db.Column(db.Enum("pendente", "pago", "atrasado"), default="pendente")
     created_at = db.Column(db.DateTime)
 
+    cliente = db.relationship("Cliente", backref="pagamentos")
+
     def to_dict(self):
         return {
             "id": self.id,
             "cliente_id": self.cliente_id,
+            "cliente_nome": self.cliente.nome_empresa if self.cliente else None,
             "projeto_id": self.projeto_id,
             "valor": float(self.valor),
             "data_vencimento": self.data_vencimento.isoformat() if self.data_vencimento else None,
