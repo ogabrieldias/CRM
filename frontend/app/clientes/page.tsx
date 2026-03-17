@@ -16,6 +16,19 @@ interface Cliente {
   created_at: string;
 }
 
+// Função para aplicar máscara no telefone
+const formatarTelefone = (valor: string) => {
+  let numeros = valor.replace(/\D/g, "");
+  if (!numeros.startsWith("55")) {
+    numeros = "55" + numeros;
+  }
+  numeros = numeros.slice(0, 13);
+  if (numeros.length >= 12) {
+    return `+55 ${numeros.slice(2, 4)} ${numeros.slice(4, 9)}-${numeros.slice(9, 13)}`;
+  }
+  return "+55 " + numeros.slice(2);
+};
+
 export default function ClientesPage() {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [novo, setNovo] = useState<Partial<Cliente>>({});
@@ -64,7 +77,7 @@ export default function ClientesPage() {
               onChange={e => setNovo({ ...novo, nome_contato: e.target.value })} />
             <input className="input input-bordered" placeholder="Telefone"
               value={novo.telefone || ""}
-              onChange={e => setNovo({ ...novo, telefone: e.target.value })} />
+              onChange={e => setNovo({ ...novo, telefone: formatarTelefone(e.target.value) })} />
             <input className="input input-bordered" placeholder="Email"
               value={novo.email || ""}
               onChange={e => setNovo({ ...novo, email: e.target.value })} />
@@ -110,7 +123,7 @@ export default function ClientesPage() {
                   <td>{c.id}</td>
                   <td>{c.nome_empresa}</td>
                   <td>{c.nome_contato}</td>
-                  <td>{c.telefone}</td>
+                  <td>{formatarTelefone(c.telefone)}</td>
                   <td>{c.email}</td>
                   <td>{c.cidade}</td>
                   <td>{c.status_cliente}</td>
@@ -140,7 +153,7 @@ export default function ClientesPage() {
                   onChange={e => setEditando({ ...editando, nome_contato: e.target.value })} />
                 <input className="input input-bordered" placeholder="Telefone"
                   value={editando.telefone}
-                  onChange={e => setEditando({ ...editando, telefone: e.target.value })} />
+                  onChange={e => setEditando({ ...editando, telefone: formatarTelefone(e.target.value) })} />
                 <input className="input input-bordered" placeholder="Email"
                   value={editando.email}
                   onChange={e => setEditando({ ...editando, email: e.target.value })} />
