@@ -10,6 +10,9 @@ class Lead(db.Model):
     telefone = db.Column(db.String(50))
     email = db.Column(db.String(255))
     cidade = db.Column(db.String(255))
+    ramo = db.Column(db.String(255))  # novo campo
+    abordado = db.Column(db.Enum("Sim", "Não"), default="Não")  # novo campo
+    site = db.Column(db.Enum("Sim", "Não"), default="Não")      # novo campo
     status_lead = db.Column(db.Enum("novo", "em andamento", "perdido", "convertido"), default="novo")
     nivel_interesse = db.Column(db.Enum("baixo", "medio", "alto"))
     responsavel = db.Column(db.String(255))
@@ -23,6 +26,9 @@ class Lead(db.Model):
             "telefone": self.telefone,
             "email": self.email,
             "cidade": self.cidade,
+            "ramo": self.ramo,
+            "abordado": self.abordado,
+            "site": self.site,
             "status_lead": self.status_lead,
             "nivel_interesse": self.nivel_interesse,
             "responsavel": self.responsavel,
@@ -40,6 +46,8 @@ class Cliente(db.Model):
     telefone = db.Column(db.String(50))
     email = db.Column(db.String(255))
     cidade = db.Column(db.String(255))
+    ramo = db.Column(db.String(255))  # novo campo
+    link_site = db.Column(db.String(255))  # novo campo
     status_cliente = db.Column(db.Enum("ativo", "inativo"), default="ativo")
     data_conversao = db.Column(db.Date)
     valor_medio = db.Column(db.Numeric(10, 2))
@@ -53,6 +61,8 @@ class Cliente(db.Model):
             "telefone": self.telefone,
             "email": self.email,
             "cidade": self.cidade,
+            "ramo": self.ramo,
+            "link_site": self.link_site,
             "status_cliente": self.status_cliente,
             "data_conversao": self.data_conversao.isoformat() if self.data_conversao else None,
             "valor_medio": float(self.valor_medio) if self.valor_medio else None,

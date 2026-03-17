@@ -161,3 +161,24 @@ VALUES (1, 'Plano Premium', 1200.00, 10, 'ativo', NOW());
 INSERT INTO interacoes 
 (lead_id, cliente_id, tipo_interacao, resumo, data_interacao, responsavel)
 VALUES (1, 1, 'reuniao', 'Apresentação inicial do projeto', NOW(), 'Gabriel');
+
+
+
+
+
+
+
+
+
+
+Adição de novos campos:
+-- Adicionar novos campos em leads_prospeccao
+ALTER TABLE leads_prospeccao
+    ADD COLUMN ramo VARCHAR(255),
+    ADD COLUMN abordado ENUM('Sim', 'Não') DEFAULT 'Não',
+    ADD COLUMN site ENUM('Sim', 'Não') DEFAULT 'Não';
+
+-- Adicionar novos campos em clientes
+ALTER TABLE clientes
+    ADD COLUMN ramo VARCHAR(255),
+    ADD COLUMN link_site VARCHAR(255);

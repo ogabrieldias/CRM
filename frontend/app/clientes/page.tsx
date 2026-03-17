@@ -16,29 +16,45 @@ interface Cliente {
   created_at: string;
 }
 
-// Função para aplicar máscara no telefone
-const formatarTelefone = (valor: string) => {
-  let numeros = valor.replace(/\D/g, "");
-  if (!numeros.startsWith("55")) {
-    numeros = "55" + numeros;
-  }
-  numeros = numeros.slice(0, 13);
-  if (numeros.length >= 12) {
-    return `+55 ${numeros.slice(2, 4)} ${numeros.slice(4, 9)}-${numeros.slice(9, 13)}`;
-  }
-  return "+55 " + numeros.slice(2);
-};
 
 export default function ClientesPage() {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [novo, setNovo] = useState<Partial<Cliente>>({});
   const [editando, setEditando] = useState<Cliente | null>(null);
 
-  useEffect(() => { carregar(); }, []);
+  // Função para aplicar máscara no telefone
+  const formatarTelefone = (valor?: string | null) => {
+    if (!valor) return ""; // se for null/undefined, retorna vazio
+    let numeros = valor.replace(/\D/g, "");
+    if (!numeros.startsWith("55")) {
+      numeros = "55" + numeros;
+    }
+    numeros = numeros.slice(0, 13);
+    if (numeros.length >= 12) {
+      return `+55 ${numeros.slice(2, 4)} ${numeros.slice(4, 9)}-${numeros.slice(9, 13)}`;
+    }
+    return "+55 " + numeros.slice(2);
+  };
+
+
+   // Funções auxiliares para definir cores
+  const getStatusBadgeClass = (status: string) => {
+    switch (status) {
+      case "ativo":
+        return "badge badge-success";
+      case "inativo":
+        return "badge badge-error";
+      default:
+        return "badge";
+    }
+  };
 
   const carregar = () => {
     api.get("/clientes/").then(res => setClientes(res.data));
   };
+
+
+  useEffect(() => { carregar(); }, []);
 
   const criar = () => {
     api.post("/clientes/", novo).then(() => {
@@ -126,7 +142,11 @@ export default function ClientesPage() {
                   <td>{formatarTelefone(c.telefone)}</td>
                   <td>{c.email}</td>
                   <td>{c.cidade}</td>
-                  <td>{c.status_cliente}</td>
+                  <td>
+                    <span className={getStatusBadgeClass(c.status_cliente)}>
+                      {c.status_cliente.charAt(0).toUpperCase() + c.status_cliente.slice(1)}
+                    </span>
+                  </td>
                   <td>{c.data_conversao}</td>
                   <td>{c.valor_medio}</td>
                   <td className="flex gap-2">
@@ -145,33 +165,64 @@ export default function ClientesPage() {
             <div className="modal-box">
               <h3 className="font-bold text-lg">Editar Cliente</h3>
               <div className="flex flex-col gap-2 mt-2">
-                <input className="input input-bordered" placeholder="Empresa"
+
+                <fieldset className="border p-2 rounded">
+                  <legend className="text-sm">Empresa</legend>
+                  <input className="input input-bordered" placeholder="Empresa"
                   value={editando.nome_empresa}
-                  onChange={e => setEditando({ ...editando, nome_empresa: e.target.value })} />
-                <input className="input input-bordered" placeholder="Contato"
+                  onChange={e => setEditando({ ...editando, nome_empresa: e.target.value })} />  
+                </fieldset>
+                <fieldset className="border p-2 rounded">
+                  <legend className="text-sm">Contato</legend>
+                  <input className="input input-bordered" placeholder="Contato"
                   value={editando.nome_contato}
                   onChange={e => setEditando({ ...editando, nome_contato: e.target.value })} />
-                <input className="input input-bordered" placeholder="Telefone"
+                </fieldset>
+                <fieldset className="border p-2 rounded">
+                  <legend className="text-sm">Telefone</legend>
+                  <input className="input input-bordered" placeholder="Telefone"
                   value={editando.telefone}
                   onChange={e => setEditando({ ...editando, telefone: formatarTelefone(e.target.value) })} />
-                <input className="input input-bordered" placeholder="Email"
+                </fieldset>
+                <fieldset className="border p-2 rounded">
+                  <legend className="text-sm">Email</legend>
+                  <input className="input input-bordered" placeholder="Email"
                   value={editando.email}
                   onChange={e => setEditando({ ...editando, email: e.target.value })} />
-                <input className="input input-bordered" placeholder="Cidade"
+                </fieldset>
+                <fieldset className="border p-2 rounded">
+                  <legend className="text-sm">Cidade</legend>
+                  <input className="input input-bordered" placeholder="Cidade"
                   value={editando.cidade}
                   onChange={e => setEditando({ ...editando, cidade: e.target.value })} />
-                <select className="select select-bordered"
-                  value={editando.status_cliente}
-                  onChange={e => setEditando({ ...editando, status_cliente: e.target.value })}>
-                  <option value="ativo">Ativo</option>
-                  <option value="inativo">Inativo</option>
-                </select>
-                <input type="date" className="input input-bordered"
+                </fieldset>
+
+                <fieldset className="border p-2 rounded">
+                  <legend className="text-sm">Status Lead</legend>
+                  <div className="flex items-center gap-2">
+                    <select className="select select-bordered flex-1"
+                      value={editando.status_cliente}
+                      onChange={e => setEditando({ ...editando, status_cliente: e.target.value })}>
+                      <option value="ativo">Ativo</option>
+                      <option value="inativo">Inativo</option>
+                    </select>
+                    <span className={getStatusBadgeClass(editando.status_cliente)}>
+                      {editando.status_cliente.charAt(0).toUpperCase() + editando.status_cliente.slice(1)}
+                    </span>
+                  </div>
+                </fieldset>
+                <fieldset className="border p-2 rounded">
+                  <legend className="text-sm">Conversão</legend>
+                  <input type="date" className="input input-bordered"
                   value={editando.data_conversao || ""}
                   onChange={e => setEditando({ ...editando, data_conversao: e.target.value })} />
-                <input type="number" className="input input-bordered"
+                </fieldset>
+                <fieldset className="border p-2 rounded">
+                  <legend className="text-sm">Valor Médio</legend>
+                  <input type="number" className="input input-bordered"
                   value={editando.valor_medio}
                   onChange={e => setEditando({ ...editando, valor_medio: Number(e.target.value) })} />
+                </fieldset>
               </div>
               <div className="modal-action">
                 <button className="btn btn-primary" onClick={atualizar}>Salvar</button>
