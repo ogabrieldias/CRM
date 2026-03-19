@@ -1,6 +1,9 @@
 "use client";
 import Navbar from "../components/Navbar";
 import Link from "next/link";
+import ScriptsCRM from "./script/page";
+
+
 
 export default function Home() {
   return (
@@ -42,6 +45,13 @@ export default function Home() {
             <h2 className="text-xl font-semibold mb-2">Interações</h2>
             <p>Registre contatos e atividades com leads e clientes.</p>
           </Link>
+          
+          <Link href="/script" className="card bg-base-100 shadow-md hover:shadow-lg p-6">
+            <h2 className="text-xl font-semibold mb-2">Scripts de CRM</h2>
+            <p>Copie e utilize scripts prontos de alta conversão.</p>
+          </Link>
+
+          
         </div>
       </main>
     </div>

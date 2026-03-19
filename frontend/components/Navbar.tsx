@@ -14,6 +14,7 @@ export default function Navbar() {
           <li><Link href="/pagamentos">Pagamentos</Link></li>
           <li><Link href="/planos">Planos</Link></li>
           <li><Link href="/interacoes">Interações</Link></li>
+          <li><Link href="/script">Script</Link></li>
         </ul>
       </div>
     </div>
