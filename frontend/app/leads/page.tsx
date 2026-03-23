@@ -181,26 +181,30 @@ export default function LeadsPage() {
             <tbody>
               {leads.map(l => (
                 <tr key={l.id}>
-                  <td>{l.id}</td>
-                  <td>{l.nome_empresa}</td>
-                  <td>{l.nome_contato}</td>
-                  <td>{formatarTelefone(l.telefone)}</td>
-                  <td>{l.email}</td>
-                  <td>{l.cidade}</td>
-                  <td>{l.ramo}</td>
-                  <td>{l.abordado}</td>
-                  <td>{l.site}</td>
+                  <td>{l.id || ""}</td>
+                  <td>{l.nome_empresa || ""}</td>
+                  <td>{l.nome_contato || ""}</td>
+                  <td>{l.telefone ? formatarTelefone(l.telefone) : ""}</td>
+                  <td>{l.email || ""}</td>
+                  <td>{l.cidade || ""}</td>
+                  <td>{l.ramo || ""}</td>
+                  <td>{l.abordado || ""}</td>
+                  <td>{l.site || ""}</td>
                   <td>
                     <span className={getStatusBadgeClass(l.status_lead)}>
-                      {l.status_lead.charAt(0).toUpperCase() + l.status_lead.slice(1)}
+                      {l.status_lead
+                        ? l.status_lead.charAt(0).toUpperCase() + l.status_lead.slice(1)
+                        : ""}
                     </span>
                   </td>
                   <td>
                     <span className={getInteresseBadgeClass(l.nivel_interesse)}>
-                      {l.nivel_interesse.charAt(0).toUpperCase() + l.nivel_interesse.slice(1)}
+                      {l.nivel_interesse
+                        ? l.nivel_interesse.charAt(0).toUpperCase() + l.nivel_interesse.slice(1)
+                        : ""}
                     </span>
                   </td>
-                  <td>{l.responsavel}</td>
+                  <td>{l.responsavel || ""}</td>
                   <td className="flex gap-2">
                     <button className="btn btn-warning btn-xs"
                       onClick={() => setEditando(l)}>Editar</button>
@@ -210,6 +214,7 @@ export default function LeadsPage() {
                 </tr>
               ))}
             </tbody>
+
           </table>
         </div>
 
@@ -302,6 +307,8 @@ export default function LeadsPage() {
                     <span className={getInteresseBadgeClass(editando.nivel_interesse)}>
                       {editando.nivel_interesse.charAt(0).toUpperCase() + editando.nivel_interesse.slice(1)}
                     </span>
+
+
                   </div>
                 </fieldset>               
                 <fieldset className="border p-2 rounded">

@@ -1,52 +1,13 @@
-# Boilerplate-Api
-Boilerplate de API CRUD
-
-# API
-É um lugar para disponibilizar recursos e/ou funcionalidades
-
-# Objetivo
-Criar uma API que disponibiliza a consulta, criação, edição e exclusão de livros
- 
-# URL base
-localhost
-
-# Endpoints
-localhost/livros (GET) - Consulta <br>
-localhost/livros (POST) - Criar novos livros<br>
-localhost/livros/id (GET) - Consulta de livro específico por ID<br>
-localhost/livros/id (PUT) - Modificação de livro por ID<br>
-localhost/livros/id (DELETE) - Deletar por ID
-
-# Recursos
-Livros
-
-# Script MySQL
-
-CREATE DATABASE livros; <br>
-USE livros; <br>
-
-CREATE TABLE livro ( <br>
-&nbsp;    id INT AUTO_INCREMENT PRIMARY KEY, <br>
-&nbsp;    titulo VARCHAR(200) NOT NULL, <br>
-&nbsp;    autor VARCHAR(100) NOT NULL <br>
-); <br>
-
-INSERT INTO livro (titulo, autor) VALUES <br>
-('O Senhor dos Anéis - A Sociedade do Anel', 'J.R.R. Tolkien'), <br>
-('Harry Potter e a Pedra Filosofal', 'J.K. Rowling'), <br>
-('James Clear', 'Hábitos Atômicos'); <br>
-
-SELECT * FROM livro
-
-
+Se não abrir no XAMPP basta rodar um: netstat -ano | findstr 3306
+no cmd, pegar o PID e matar a tarefa
 
 Precisa rodar antes py -m pip install flask-cors
 
 
 Criando banco de dados
 Conexão TechDias
-CREATE DATABASE techdias;
-USE techdias;
+CREATE DATABASE crmtechdias;
+USE crmtechdias;
 
 -- LEADS PROSPECCAO
 CREATE TABLE leads_prospeccao (
@@ -56,6 +17,9 @@ CREATE TABLE leads_prospeccao (
     telefone VARCHAR(50),
     email VARCHAR(255),
     cidade VARCHAR(255),
+    ramo VARCHAR(255),
+    abordado ENUM('Sim', 'Não') DEFAULT 'Não',
+    site ENUM('Sim', 'Não') DEFAULT 'Não',
     status_lead ENUM('novo','em andamento','perdido','convertido') DEFAULT 'novo',
     nivel_interesse ENUM('baixo','medio','alto'),
     responsavel VARCHAR(255),
@@ -72,6 +36,8 @@ CREATE TABLE clientes (
     cidade VARCHAR(255),
     status_cliente ENUM('ativo','inativo') DEFAULT 'ativo',
     data_conversao DATE,
+    ramo VARCHAR(255),
+    link_site VARCHAR(255),
     valor_medio DECIMAL(10,2),
     created_at DATETIME
 );
@@ -130,55 +96,3 @@ CREATE TABLE interacoes (
 );
 
 
-
-Inserção de Dados:
--- LEAD
-INSERT INTO leads_prospeccao 
-(nome_empresa, nome_contato, telefone, email, cidade, status_lead, nivel_interesse, responsavel, created_at)
-VALUES ('TechCorp', 'João Silva', '21999999999', 'joao@techcorp.com', 'Rio de Janeiro', 'novo', 'alto', 'Gabriel', NOW());
-
--- CLIENTE
-INSERT INTO clientes 
-(nome_empresa, nome_contato, telefone, email, cidade, status_cliente, data_conversao, valor_medio, created_at)
-VALUES ('Inova Ltda', 'Maria Souza', '2133334444', 'maria@inova.com', 'São Paulo', 'ativo', '2026-02-01', 15000.00, NOW());
-
--- PROJETO
-INSERT INTO projetos 
-(cliente_id, nome_projeto, status_projeto, data_inicio, data_previsao, valor_projeto, created_at)
-VALUES (1, 'Website Corporativo', 'em andamento', '2026-02-10', '2026-03-15', 25000.00, NOW());
-
--- PAGAMENTO
-INSERT INTO pagamentos 
-(cliente_id, projeto_id, valor, data_vencimento, status_pagamento, created_at)
-VALUES (1, 1, 5000.00, '2026-03-01', 'pendente', NOW());
-
--- PLANO RECORRENTE
-INSERT INTO planos_recorrentes 
-(cliente_id, nome_plano, valor_mensal, dia_cobranca, status_plano, created_at)
-VALUES (1, 'Plano Premium', 1200.00, 10, 'ativo', NOW());
-
--- INTERACAO
-INSERT INTO interacoes 
-(lead_id, cliente_id, tipo_interacao, resumo, data_interacao, responsavel)
-VALUES (1, 1, 'reuniao', 'Apresentação inicial do projeto', NOW(), 'Gabriel');
-
-
-
-
-
-
-
-
-
-
-Adição de novos campos:
--- Adicionar novos campos em leads_prospeccao
-ALTER TABLE leads_prospeccao
-    ADD COLUMN ramo VARCHAR(255),
-    ADD COLUMN abordado ENUM('Sim', 'Não') DEFAULT 'Não',
-    ADD COLUMN site ENUM('Sim', 'Não') DEFAULT 'Não';
-
--- Adicionar novos campos em clientes
-ALTER TABLE clientes
-    ADD COLUMN ramo VARCHAR(255),
-    ADD COLUMN link_site VARCHAR(255);
