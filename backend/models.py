@@ -1,22 +1,72 @@
 from database import db
 
+
 # ========== 1. LEADS PROSPECCAO ==========
 class Lead(db.Model):
     __tablename__ = "leads_prospeccao"
 
     id = db.Column(db.Integer, primary_key=True)
-    nome_empresa = db.Column(db.String(255), nullable=False)
+
+    nome_empresa = db.Column(
+        db.String(255),
+        nullable=False
+    )
+
     nome_contato = db.Column(db.String(255))
+
     telefone = db.Column(db.String(50))
+
     email = db.Column(db.String(255))
+
     cidade = db.Column(db.String(255))
-    ramo = db.Column(db.String(255))  # novo campo
-    abordado = db.Column(db.Enum("Sim", "Não"), default="Não")  # novo campo
-    site = db.Column(db.Enum("Sim", "Não"), default="Não")      # novo campo
-    status_lead = db.Column(db.Enum("novo", "em andamento", "perdido", "convertido"), default="novo")
-    nivel_interesse = db.Column(db.Enum("baixo", "medio", "alto"))
+
+    ramo = db.Column(db.String(255))
+
+    abordado = db.Column(
+        db.Enum(
+            "Sim",
+            "Não",
+            name="abordado_enum"
+        ),
+        default="Não"
+    )
+
+    site = db.Column(
+        db.Enum(
+            "Sim",
+            "Não",
+            name="site_enum"
+        ),
+        default="Não"
+    )
+
+    status_lead = db.Column(
+        db.Enum(
+            "novo",
+            "em andamento",
+            "perdido",
+            "convertido",
+            name="status_lead_enum"
+        ),
+        default="novo"
+    )
+
+    nivel_interesse = db.Column(
+        db.Enum(
+            "baixo",
+            "medio",
+            "alto",
+            name="nivel_interesse_enum"
+        )
+    )
+
     responsavel = db.Column(db.String(255))
-    created_at = db.Column(db.DateTime)
+
+    created_at = db.Column(
+        db.DateTime,
+        nullable=False,
+        server_default=db.func.now()
+    )
 
     def to_dict(self):
         return {
@@ -41,17 +91,42 @@ class Cliente(db.Model):
     __tablename__ = "clientes"
 
     id = db.Column(db.Integer, primary_key=True)
-    nome_empresa = db.Column(db.String(255), nullable=False)
+
+    nome_empresa = db.Column(
+        db.String(255),
+        nullable=False
+    )
+
     nome_contato = db.Column(db.String(255))
+
     telefone = db.Column(db.String(50))
+
     email = db.Column(db.String(255))
+
     cidade = db.Column(db.String(255))
-    ramo = db.Column(db.String(255))  # novo campo
-    link_site = db.Column(db.String(255))  # novo campo
-    status_cliente = db.Column(db.Enum("ativo", "inativo"), default="ativo")
+
+    ramo = db.Column(db.String(255))
+
+    link_site = db.Column(db.String(255))
+
+    status_cliente = db.Column(
+        db.Enum(
+            "ativo",
+            "inativo",
+            name="status_cliente_enum"
+        ),
+        default="ativo"
+    )
+
     data_conversao = db.Column(db.Date)
+
     valor_medio = db.Column(db.Numeric(10, 2))
-    created_at = db.Column(db.DateTime)
+
+    created_at = db.Column(
+        db.DateTime,
+        nullable=False,
+        server_default=db.func.now()
+    )
 
     def to_dict(self):
         return {
@@ -69,20 +144,52 @@ class Cliente(db.Model):
             "created_at": self.created_at.isoformat() if self.created_at else None
         }
 
-
 # ========== 3. PROJETOS ==========
 class Projeto(db.Model):
     __tablename__ = "projetos"
 
     id = db.Column(db.Integer, primary_key=True)
-    cliente_id = db.Column(db.Integer, db.ForeignKey("clientes.id"), nullable=False)
+
+    cliente_id = db.Column(
+        db.Integer,
+        db.ForeignKey("clientes.id"),
+        nullable=False
+    )
+
     nome_projeto = db.Column(db.String(255))
-    status_projeto = db.Column(db.Enum("briefing", "em andamento", "entregue", "cancelado"), default="briefing")
+
+    status_projeto = db.Column(
+        db.Enum(
+            "briefing",
+            "em andamento",
+            "entregue",
+            "cancelado",
+            name="status_projeto_enum"
+        ),
+        default="briefing"
+    )
+
     data_inicio = db.Column(db.Date)
+
     data_previsao = db.Column(db.Date)
+
     data_entrega = db.Column(db.Date)
+
     valor_projeto = db.Column(db.Numeric(10, 2))
-    created_at = db.Column(db.DateTime)
+
+    created_at = db.Column(
+        db.DateTime,
+        nullable=False,
+        server_default=db.func.now()
+    )
+
+    cliente = db.relationship(
+        "Cliente",
+        backref=db.backref(
+            "projetos",
+            lazy=True
+        )
+    )
 
     def to_dict(self):
         return {
@@ -103,15 +210,58 @@ class Pagamento(db.Model):
     __tablename__ = "pagamentos"
 
     id = db.Column(db.Integer, primary_key=True)
-    cliente_id = db.Column(db.Integer, db.ForeignKey("clientes.id"), nullable=False)
-    projeto_id = db.Column(db.Integer, db.ForeignKey("projetos.id"))
-    valor = db.Column(db.Numeric(10, 2), nullable=False)
-    data_vencimento = db.Column(db.Date)
-    data_pagamento = db.Column(db.Date)
-    status_pagamento = db.Column(db.Enum("pendente", "pago", "atrasado"), default="pendente")
-    created_at = db.Column(db.DateTime)
 
-    cliente = db.relationship("Cliente", backref="pagamentos")
+    cliente_id = db.Column(
+        db.Integer,
+        db.ForeignKey("clientes.id"),
+        nullable=False
+    )
+
+    projeto_id = db.Column(
+        db.Integer,
+        db.ForeignKey("projetos.id")
+    )
+
+    valor = db.Column(
+        db.Numeric(10, 2),
+        nullable=False
+    )
+
+    data_vencimento = db.Column(db.Date)
+
+    data_pagamento = db.Column(db.Date)
+
+    status_pagamento = db.Column(
+        db.Enum(
+            "pendente",
+            "pago",
+            "atrasado",
+            name="status_pagamento_enum"
+        ),
+        default="pendente"
+    )
+
+    created_at = db.Column(
+        db.DateTime,
+        nullable=False,
+        server_default=db.func.now()
+    )
+
+    cliente = db.relationship(
+        "Cliente",
+        backref=db.backref(
+            "pagamentos",
+            lazy=True
+        )
+    )
+
+    projeto = db.relationship(
+        "Projeto",
+        backref=db.backref(
+            "pagamentos",
+            lazy=True
+        )
+    )
 
     def to_dict(self):
         return {
@@ -126,18 +276,47 @@ class Pagamento(db.Model):
             "created_at": self.created_at.isoformat() if self.created_at else None
         }
 
-
 # ========== 5. PLANOS RECORRENTES ==========
 class PlanoRecorrente(db.Model):
     __tablename__ = "planos_recorrentes"
 
     id = db.Column(db.Integer, primary_key=True)
-    cliente_id = db.Column(db.Integer, db.ForeignKey("clientes.id"), nullable=False)
+
+    cliente_id = db.Column(
+        db.Integer,
+        db.ForeignKey("clientes.id"),
+        nullable=False
+    )
+
     nome_plano = db.Column(db.String(255))
+
     valor_mensal = db.Column(db.Numeric(10, 2))
+
     dia_cobranca = db.Column(db.Integer)
-    status_plano = db.Column(db.Enum("ativo", "cancelado", "suspenso"), default="ativo")
-    created_at = db.Column(db.DateTime)
+
+    status_plano = db.Column(
+        db.Enum(
+            "ativo",
+            "cancelado",
+            "suspenso",
+            name="status_plano_enum"
+        ),
+        default="ativo"
+    )
+
+    created_at = db.Column(
+        db.DateTime,
+        nullable=False,
+        server_default=db.func.now()
+    )
+
+    cliente = db.relationship(
+        "Cliente",
+        backref=db.backref(
+            "planos",
+            lazy=True
+        )
+    )
 
     def to_dict(self):
         return {
@@ -156,12 +335,48 @@ class Interacao(db.Model):
     __tablename__ = "interacoes"
 
     id = db.Column(db.Integer, primary_key=True)
-    lead_id = db.Column(db.Integer, db.ForeignKey("leads_prospeccao.id"))
-    cliente_id = db.Column(db.Integer, db.ForeignKey("clientes.id"))
-    tipo_interacao = db.Column(db.Enum("ligacao", "email", "reuniao", "mensagem"))
+
+    lead_id = db.Column(
+        db.Integer,
+        db.ForeignKey("leads_prospeccao.id")
+    )
+
+    cliente_id = db.Column(
+        db.Integer,
+        db.ForeignKey("clientes.id")
+    )
+
+    tipo_interacao = db.Column(
+        db.Enum(
+            "ligacao",
+            "email",
+            "reuniao",
+            "mensagem",
+            name="tipo_interacao_enum"
+        )
+    )
+
     resumo = db.Column(db.Text)
+
     data_interacao = db.Column(db.DateTime)
+
     responsavel = db.Column(db.String(255))
+
+    cliente = db.relationship(
+        "Cliente",
+        backref=db.backref(
+            "interacoes",
+            lazy=True
+        )
+    )
+
+    lead = db.relationship(
+        "Lead",
+        backref=db.backref(
+            "interacoes",
+            lazy=True
+        )
+    )
 
     def to_dict(self):
         return {

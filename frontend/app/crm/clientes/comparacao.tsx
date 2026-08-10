@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import api from "../../services/api";
-import Navbar from "../../components/Navbar";
+import api from "../../../services/api";
+import Navbar from "../../../components/Navbar";
 
 // 1. Interface: define os campos da entidade
 interface Entidade {

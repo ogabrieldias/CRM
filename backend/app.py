@@ -1,6 +1,10 @@
 from flask import Flask
 from flask_cors import CORS
+from dotenv import load_dotenv
+import os
+
 from database import db
+
 from routes.leads import leads_bp
 from routes.clientes import clientes_bp
 from routes.projetos import projetos_bp
@@ -8,17 +12,16 @@ from routes.pagamentos import pagamentos_bp
 from routes.planos import planos_bp
 from routes.interacoes import interacoes_bp
 
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
-# Configuração do banco MySQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:12345678@localhost/crmtechdias'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
 
-# Registrar rotas
 app.register_blueprint(leads_bp, url_prefix="/leads")
 app.register_blueprint(clientes_bp, url_prefix="/clientes")
 app.register_blueprint(projetos_bp, url_prefix="/projetos")

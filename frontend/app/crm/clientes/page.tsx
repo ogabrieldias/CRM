@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import api from "../../services/api";
-import Navbar from "../../components/Navbar";
+import api from "../../../services/api";
+import Navbar from "../../../components/Navbar";
 
 interface Cliente {
   id: number;
@@ -37,7 +37,7 @@ export default function ClientesPage() {
   };
 
 
-   // Funções auxiliares para definir cores
+  // Funções auxiliares para definir cores
   const getStatusBadgeClass = (status: string) => {
     switch (status) {
       case "ativo":
@@ -169,32 +169,32 @@ export default function ClientesPage() {
                 <fieldset className="border p-2 rounded">
                   <legend className="text-sm">Empresa</legend>
                   <input className="input input-bordered" placeholder="Empresa"
-                  value={editando.nome_empresa}
-                  onChange={e => setEditando({ ...editando, nome_empresa: e.target.value })} />  
+                    value={editando.nome_empresa}
+                    onChange={e => setEditando({ ...editando, nome_empresa: e.target.value })} />
                 </fieldset>
                 <fieldset className="border p-2 rounded">
                   <legend className="text-sm">Contato</legend>
                   <input className="input input-bordered" placeholder="Contato"
-                  value={editando.nome_contato}
-                  onChange={e => setEditando({ ...editando, nome_contato: e.target.value })} />
+                    value={editando.nome_contato}
+                    onChange={e => setEditando({ ...editando, nome_contato: e.target.value })} />
                 </fieldset>
                 <fieldset className="border p-2 rounded">
                   <legend className="text-sm">Telefone</legend>
                   <input className="input input-bordered" placeholder="Telefone"
-                  value={editando.telefone}
-                  onChange={e => setEditando({ ...editando, telefone: formatarTelefone(e.target.value) })} />
+                    value={editando.telefone}
+                    onChange={e => setEditando({ ...editando, telefone: formatarTelefone(e.target.value) })} />
                 </fieldset>
                 <fieldset className="border p-2 rounded">
                   <legend className="text-sm">Email</legend>
                   <input className="input input-bordered" placeholder="Email"
-                  value={editando.email}
-                  onChange={e => setEditando({ ...editando, email: e.target.value })} />
+                    value={editando.email}
+                    onChange={e => setEditando({ ...editando, email: e.target.value })} />
                 </fieldset>
                 <fieldset className="border p-2 rounded">
                   <legend className="text-sm">Cidade</legend>
                   <input className="input input-bordered" placeholder="Cidade"
-                  value={editando.cidade}
-                  onChange={e => setEditando({ ...editando, cidade: e.target.value })} />
+                    value={editando.cidade}
+                    onChange={e => setEditando({ ...editando, cidade: e.target.value })} />
                 </fieldset>
 
                 <fieldset className="border p-2 rounded">
@@ -214,14 +214,14 @@ export default function ClientesPage() {
                 <fieldset className="border p-2 rounded">
                   <legend className="text-sm">Conversão</legend>
                   <input type="date" className="input input-bordered"
-                  value={editando.data_conversao || ""}
-                  onChange={e => setEditando({ ...editando, data_conversao: e.target.value })} />
+                    value={editando.data_conversao || ""}
+                    onChange={e => setEditando({ ...editando, data_conversao: e.target.value })} />
                 </fieldset>
                 <fieldset className="border p-2 rounded">
                   <legend className="text-sm">Valor Médio</legend>
                   <input type="number" className="input input-bordered"
-                  value={editando.valor_medio}
-                  onChange={e => setEditando({ ...editando, valor_medio: Number(e.target.value) })} />
+                    value={editando.valor_medio}
+                    onChange={e => setEditando({ ...editando, valor_medio: Number(e.target.value) })} />
                 </fieldset>
               </div>
               <div className="modal-action">

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Copy } from "lucide-react";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../../components/Navbar";
 
 export default function ScriptsCRM() {
   const [copiado, setCopiado] = useState("");
@@ -40,7 +40,7 @@ Posso te mostrar rapidamente alguns pontos que podem estar limitando suas conver
             },
             {
               titulo: "Concorrência Capturando seus Clientes",
-              texto:  `Olá [Nome],\n
+              texto: `Olá [Nome],\n
 Uma coisa que observo bastante é empresas excelentes sendo ultrapassadas por concorrentes apenas por terem uma presença digital mais estratégica.\n
 Hoje, quem comunica melhor online acaba sendo escolhido primeiro, mesmo não sendo o melhor.\n
 Eu ajudo negócios a corrigirem isso com páginas pensadas para posicionamento, autoridade e conversão.\n
@@ -69,10 +69,10 @@ Muitos negócios oferecem serviços excelentes, mas acabam não transmitindo iss
 Quando a apresentação não acompanha a qualidade, o cliente não percebe o valor.\n
 Meu trabalho é alinhar imagem digital com a qualidade real da empresa, criando páginas que valorizam o negócio e geram contato.\n
 Quer ver como poderíamos aplicar isso no seu caso?`
-            }  
+            }
           ],
         }, //FIM DE CLIENTE QUE TEM SITE
-        
+
         {
           nome: "Cliente que não tem site",
           variacoes: [
@@ -120,7 +120,7 @@ Sem um site, sua empresa depende apenas de indicações e redes sociais, o que l
 Com uma página própria, você constrói uma base sólida de presença digital e abre portas para novos clientes todos os dias.\n
 Quer que eu te mostre como começar esse processo de forma simples e estratégica?`
             },
-          ],             
+          ],
         }, //FIM DE CLIENTE QUE NÃO TEM SITE
         {
           nome: "Script de Follow-Up",
@@ -209,7 +209,7 @@ Quer que eu te mostre como começar esse processo de forma simples e estratégic
               titulo: "Lead que não tem site",
               texto: `Oi [Nome], tudo bem? Hoje todo mundo procura no Google antes de contratar. Se sua empresa não tem site, acaba ficando invisível.\n
 Eu crio páginas simples e estratégicas que funcionam como vitrine 24h. Vamos fechar isso e colocar sua empresa no mapa digital?`
-            },  
+            },
             {
               titulo: "Lead que tem site",
               texto: `Fala [Nome], vi que você já tem um site, mas muitos negócios perdem clientes porque a página não converte.\n
@@ -225,7 +225,7 @@ Eu ajusto sites para gerar confiança e resultado real. Se quiser, podemos fecha
               texto: `Super entendo, [Nome].\n
 Na verdade, muitos clientes começam justamente para aumentar entrada de oportunidades e melhorar faturamento.\n
 Se quiser, posso te mostrar opções simples e acessíveis que já geram resultado.`
-            },  
+            },
             {
               titulo: "⏳ Depois vejo isso",
               texto: `Perfeito 🙂\n
@@ -351,172 +351,171 @@ Inclui otimização de copy, novos conteúdos e suporte prioritário.\n
   ];
 
   return (
-  <div className="min-h-screen bg-base-200">
-    <Navbar />
+    <div className="min-h-screen bg-base-200">
+      <Navbar />
 
-    <div className="p-6 space-y-8">
-      
-      {/* HEADER */}
-      <div>
-        <h1 className="text-3xl font-bold">Scripts de CRM</h1>
-        <p className="text-base-content/60">
-          Scripts prontos para abordagem, vendas e fidelização
-        </p>
-      </div>
+      <div className="p-6 space-y-8">
 
-      {/* GRID DE CARDS */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {/* HEADER */}
+        <div>
+          <h1 className="text-3xl font-bold">Scripts de CRM</h1>
+          <p className="text-base-content/60">
+            Scripts prontos para abordagem, vendas e fidelização
+          </p>
+        </div>
 
-        {data.map((grupo, index) => (
-          <div
-            key={index}
-            className="card bg-base-100 border border-base-200 shadow-sm hover:shadow-lg transition"
-          >
-            <div className="card-body p-5">
+        {/* GRID DE CARDS */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 
-              {/* Título do grupo */}
-              <h2 className="card-title text-lg">{grupo.titulo}</h2>
-              <div className="divider my-2"></div>
+          {data.map((grupo, index) => (
+            <div
+              key={index}
+              className="card bg-base-100 border border-base-200 shadow-sm hover:shadow-lg transition"
+            >
+              <div className="card-body p-5">
 
-              <div className="space-y-2">
+                {/* Título do grupo */}
+                <h2 className="card-title text-lg">{grupo.titulo}</h2>
+                <div className="divider my-2"></div>
 
-                {/* Percorre os scripts dentro do grupo */}
-                {grupo.scripts.map((item, i) => {
-                  const id = `${grupo.titulo}-${i}`;
+                <div className="space-y-2">
 
-                  return (
-                    <div
-                      key={i}
-                      className={`collapse collapse-arrow bg-base-200/60 rounded-box ${
-                        aberto === id ? "collapse-open" : "collapse-close"
-                      }`}
-                    >
-                      {/* Cabeçalho do acordeon */}
+                  {/* Percorre os scripts dentro do grupo */}
+                  {grupo.scripts.map((item, i) => {
+                    const id = `${grupo.titulo}-${i}`;
+
+                    return (
                       <div
-                        className="collapse-title text-sm font-medium cursor-pointer"
-                        onClick={() => setAberto(aberto === id ? null : id)}
+                        key={i}
+                        className={`collapse collapse-arrow bg-base-200/60 rounded-box ${aberto === id ? "collapse-open" : "collapse-close"
+                          }`}
                       >
-                        {item.nome}
-                      </div>
+                        {/* Cabeçalho do acordeon */}
+                        <div
+                          className="collapse-title text-sm font-medium cursor-pointer"
+                          onClick={() => setAberto(aberto === id ? null : id)}
+                        >
+                          {item.nome}
+                        </div>
 
-                      {/* Conteúdo do acordeon */}
-                      <div className="collapse-content space-y-3">
+                        {/* Conteúdo do acordeon */}
+                        <div className="collapse-content space-y-3">
 
-                        {/* SE TIVER VARIAÇÕES */}
-                        {item.variacoes ? (
-                          item.variacoes.map((varItem, vIndex) => {
-                            const subId = `${id}-${vIndex}`;
+                          {/* SE TIVER VARIAÇÕES */}
+                          {item.variacoes ? (
+                            item.variacoes.map((varItem, vIndex) => {
+                              const subId = `${id}-${vIndex}`;
 
-                            return (
-                              <div
-                                key={vIndex}
-                                className="collapse collapse-arrow bg-base-100 border border-base-200 rounded-box"
+                              return (
+                                <div
+                                  key={vIndex}
+                                  className="collapse collapse-arrow bg-base-100 border border-base-200 rounded-box"
+                                >
+                                  <input type="checkbox" />
+
+                                  <div className="collapse-title text-xs font-semibold text-primary">
+                                    {varItem.titulo}
+                                  </div>
+
+                                  <div className="collapse-content space-y-2">
+
+                                    {/* SE TIVER SUBVARIAÇÕES */}
+                                    {varItem.subvariacoes ? (
+                                      varItem.subvariacoes.map((sub, sIndex) => (
+                                        <div
+                                          key={sIndex}
+                                          className="collapse collapse-arrow bg-base-100 border border-base-200 rounded-box"
+                                        >
+                                          <input type="checkbox" />
+                                          <div className="collapse-title text-xs font-semibold text-secondary">
+                                            {sub.titulo}
+                                          </div>
+                                          <div className="collapse-content space-y-2">
+                                            <p className="text-sm whitespace-pre-line text-base-content/80">
+                                              {sub.texto}
+                                            </p>
+                                            <button
+                                              onClick={() => copiar(sub.texto, `${subId}-${sIndex}`)}
+                                              className="btn btn-xs btn-primary flex items-center gap-2"
+                                            >
+                                              <Copy size={14} />
+                                              {copiado === `${subId}-${sIndex}` ? "Copiado!" : "Copiar"}
+                                            </button>
+                                          </div>
+                                        </div>
+                                      ))
+                                    ) : (
+                                      <>
+                                        <p className="text-sm whitespace-pre-line text-base-content/80">
+                                          {varItem.texto}
+                                        </p>
+                                        <button
+                                          onClick={() => copiar(varItem.texto, subId)}
+                                          className="btn btn-xs btn-primary flex items-center gap-2"
+                                        >
+                                          <Copy size={14} />
+                                          {copiado === subId ? "Copiado!" : "Copiar"}
+                                        </button>
+                                      </>
+                                    )}
+                                  </div>
+                                </div>
+                              );
+                            })
+                          ) : (
+                            <>
+                              <p className="text-sm whitespace-pre-line text-base-content/80">
+                                {item.texto}
+                              </p>
+                              <button
+                                onClick={() => copiar(item.texto, id)}
+                                className="btn btn-xs btn-primary flex items-center gap-2"
                               >
-                                <input type="checkbox" />
-
-                                <div className="collapse-title text-xs font-semibold text-primary">
-                                  {varItem.titulo}
-                                </div>
-
-                                <div className="collapse-content space-y-2">
-
-                                  {/* SE TIVER SUBVARIAÇÕES */}
-                                  {varItem.subvariacoes ? (
-                                    varItem.subvariacoes.map((sub, sIndex) => (
-                                      <div
-                                        key={sIndex}
-                                        className="collapse collapse-arrow bg-base-100 border border-base-200 rounded-box"
-                                      >
-                                        <input type="checkbox" />
-                                        <div className="collapse-title text-xs font-semibold text-secondary">
-                                          {sub.titulo}
-                                        </div>
-                                        <div className="collapse-content space-y-2">
-                                          <p className="text-sm whitespace-pre-line text-base-content/80">
-                                            {sub.texto}
-                                          </p>
-                                          <button
-                                            onClick={() => copiar(sub.texto, `${subId}-${sIndex}`)}
-                                            className="btn btn-xs btn-primary flex items-center gap-2"
-                                          >
-                                            <Copy size={14} />
-                                            {copiado === `${subId}-${sIndex}` ? "Copiado!" : "Copiar"}
-                                          </button>
-                                        </div>
-                                      </div>
-                                    ))
-                                  ) : (
-                                    <>
-                                      <p className="text-sm whitespace-pre-line text-base-content/80">
-                                        {varItem.texto}
-                                      </p>
-                                      <button
-                                        onClick={() => copiar(varItem.texto, subId)}
-                                        className="btn btn-xs btn-primary flex items-center gap-2"
-                                      >
-                                        <Copy size={14} />
-                                        {copiado === subId ? "Copiado!" : "Copiar"}
-                                      </button>
-                                    </>
-                                  )}
-                                </div>
-                              </div>
-                            );
-                          })
-                        ) : (
-                          <>
-                            <p className="text-sm whitespace-pre-line text-base-content/80">
-                              {item.texto}
-                            </p>
-                            <button
-                              onClick={() => copiar(item.texto, id)}
-                              className="btn btn-xs btn-primary flex items-center gap-2"
-                            >
-                              <Copy size={14} />
-                              {copiado === id ? "Copiado!" : "Copiar"}
-                            </button>
-                          </>
-                        )}
+                                <Copy size={14} />
+                                {copiado === id ? "Copiado!" : "Copiar"}
+                              </button>
+                            </>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
 
-              {/* BOTÃO COPIAR TUDO */}
-              <div className="card-actions justify-end mt-4">
-                <button
-                  onClick={() =>
-                    copiar(
-                      grupo.scripts
-                        .map((s) =>
-                          s.variacoes
-                            ? s.variacoes
+                {/* BOTÃO COPIAR TUDO */}
+                <div className="card-actions justify-end mt-4">
+                  <button
+                    onClick={() =>
+                      copiar(
+                        grupo.scripts
+                          .map((s) =>
+                            s.variacoes
+                              ? s.variacoes
                                 .map((v) =>
                                   v.subvariacoes
                                     ? v.subvariacoes.map((sub) => sub.texto).join("\n\n")
                                     : v.texto
                                 )
                                 .join("\n\n")
-                            : s.texto
-                        )
-                        .join("\n\n"),
-                      grupo.titulo
-                    )
-                  }
-                  className="btn btn-sm btn-outline flex items-center gap-2"
-                >
-                  <Copy size={16} />
-                  Copiar Tudo
-                </button>
+                              : s.texto
+                          )
+                          .join("\n\n"),
+                        grupo.titulo
+                      )
+                    }
+                    className="btn btn-sm btn-outline flex items-center gap-2"
+                  >
+                    <Copy size={16} />
+                    Copiar Tudo
+                  </button>
+                </div>
+
               </div>
-
             </div>
-          </div>
-        ))}
+          ))}
 
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 }
