@@ -8,13 +8,5 @@
       "root": "backend/",
       "entrypoint": "app:app"
     }
-  },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": {
-        "service": "frontend"
-      }
-    }
-  ]
+  }
 }
