@@ -235,7 +235,7 @@ Quando quiser retomar, me chama.`
             {
               titulo: "📱 Só uso Instagram",
               texto: `Instagram é excelente para alcance 🙂\n
-Mas a página funciona como base profissional onde o cliente entende, confia e toma decisão.\m
+Mas a página funciona como base profissional onde o cliente entende, confia e toma decisão.\n
 Os dois juntos geram muito mais resultado.\n
 Se quiser, te explico melhor.`
             },
