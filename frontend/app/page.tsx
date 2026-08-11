@@ -16,8 +16,10 @@ export default function Home() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          {/* CLIENTES */}
           <Link
-            href="/clientes"
+            href="/crm/clientes"
             className="card bg-base-100 shadow-md hover:shadow-lg p-6"
           >
             <h2 className="text-xl font-semibold mb-2">
@@ -29,8 +31,9 @@ export default function Home() {
             </p>
           </Link>
 
+          {/* LEADS */}
           <Link
-            href="/leads"
+            href="/crm/leads"
             className="card bg-base-100 shadow-md hover:shadow-lg p-6"
           >
             <h2 className="text-xl font-semibold mb-2">
@@ -42,8 +45,9 @@ export default function Home() {
             </p>
           </Link>
 
+          {/* PROJETOS */}
           <Link
-            href="/projetos"
+            href="/crm/projetos"
             className="card bg-base-100 shadow-md hover:shadow-lg p-6"
           >
             <h2 className="text-xl font-semibold mb-2">
@@ -55,8 +59,9 @@ export default function Home() {
             </p>
           </Link>
 
+          {/* PAGAMENTOS */}
           <Link
-            href="/pagamentos"
+            href="/crm/pagamentos"
             className="card bg-base-100 shadow-md hover:shadow-lg p-6"
           >
             <h2 className="text-xl font-semibold mb-2">
@@ -68,8 +73,9 @@ export default function Home() {
             </p>
           </Link>
 
+          {/* PLANOS */}
           <Link
-            href="/planos"
+            href="/crm/planos"
             className="card bg-base-100 shadow-md hover:shadow-lg p-6"
           >
             <h2 className="text-xl font-semibold mb-2">
@@ -81,8 +87,9 @@ export default function Home() {
             </p>
           </Link>
 
+          {/* INTERAÇÕES */}
           <Link
-            href="/interacoes"
+            href="/crm/interacoes"
             className="card bg-base-100 shadow-md hover:shadow-lg p-6"
           >
             <h2 className="text-xl font-semibold mb-2">
@@ -94,8 +101,9 @@ export default function Home() {
             </p>
           </Link>
 
+          {/* SCRIPTS */}
           <Link
-            href="/script"
+            href="/crm/script"
             className="card bg-base-100 shadow-md hover:shadow-lg p-6"
           >
             <h2 className="text-xl font-semibold mb-2">
@@ -106,6 +114,7 @@ export default function Home() {
               Copie e utilize scripts prontos de alta conversão.
             </p>
           </Link>
+
         </div>
       </main>
     </AuthGuard>
