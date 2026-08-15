@@ -3,14 +3,14 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 
-from backend.database import db
+from database import db
 
-from backend.routes.leads import leads_bp
-from backend.routes.clientes import clientes_bp
-from backend.routes.projetos import projetos_bp
-from backend.routes.pagamentos import pagamentos_bp
-from backend.routes.planos import planos_bp
-from backend.routes.interacoes import interacoes_bp
+from routes.leads import leads_bp
+from routes.clientes import clientes_bp
+from routes.projetos import projetos_bp
+from routes.pagamentos import pagamentos_bp
+from routes.planos import planos_bp
+from routes.interacoes import interacoes_bp
 
 load_dotenv()
 
