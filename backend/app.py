@@ -3,18 +3,19 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 
-from database import db
+from backend.database import db
 
-from routes.leads import leads_bp
-from routes.clientes import clientes_bp
-from routes.projetos import projetos_bp
-from routes.pagamentos import pagamentos_bp
-from routes.planos import planos_bp
-from routes.interacoes import interacoes_bp
+from backend.routes.leads import leads_bp
+from backend.routes.clientes import clientes_bp
+from backend.routes.projetos import projetos_bp
+from backend.routes.pagamentos import pagamentos_bp
+from backend.routes.planos import planos_bp
+from backend.routes.interacoes import interacoes_bp
 
 load_dotenv()
 
 app = Flask(__name__)
+
 CORS(app)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
@@ -29,5 +30,18 @@ app.register_blueprint(pagamentos_bp, url_prefix="/pagamentos")
 app.register_blueprint(planos_bp, url_prefix="/planos")
 app.register_blueprint(interacoes_bp, url_prefix="/interacoes")
 
+
+@app.route("/")
+def index():
+    return {
+        "status": "Funcionando",
+        "message": "API do CRM online"
+    }
+
+
 if __name__ == "__main__":
-    app.run(port=8000, host="localhost", debug=True)
+    app.run(
+        port=8000,
+        host="localhost",
+        debug=True
+    )
