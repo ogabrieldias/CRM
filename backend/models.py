@@ -1,5 +1,4 @@
-from database import db
-
+from backend.database import db
 
 # ========== 1. LEADS PROSPECCAO ==========
 class Lead(db.Model):

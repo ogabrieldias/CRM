@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
-from database import db
-from models import Pagamento  # <-- troque pelo Pagamento correto
+from backend.database import db
+from backend.models import Pagamento
 
 # Troque "nome" pelo nome da entidade (clientes, leads, etc.)
 pagamentos_bp = Blueprint("pagamentos", __name__)

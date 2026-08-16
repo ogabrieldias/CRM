@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
-from database import db
-from models import Lead  # <-- troque pelo Lead correto
+from backend.database import db
+from backend.models import Lead
 
 # Troque "nome" pelo nome da entidade (clientes, leads, etc.)
 leads_bp = Blueprint("leads", __name__)

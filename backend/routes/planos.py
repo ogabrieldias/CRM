@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
-from database import db
-from models import PlanoRecorrente  # <-- troque pelo PlanoRecorrente correto
+from backend.database import db
+from backend.models import PlanoRecorrente
 
 # Troque "nome" pelo nome da entidade (clientes, leads, etc.)
 planos_bp = Blueprint("planos", __name__)

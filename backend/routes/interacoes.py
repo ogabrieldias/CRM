@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
-from database import db
-from models import Interacao  # <-- troque pelo Interacao correto
+from backend.database import db
+from backend.models import Interacao
 
 # Troque "nome" pelo nome da entidade (clientes, leads, etc.)
 interacoes_bp = Blueprint("interacoes", __name__)
