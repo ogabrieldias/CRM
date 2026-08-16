@@ -1,6 +1,16 @@
 from backend.app import app as flask_app
 
 
+COLLECTION_ROUTES = {
+    "/leads",
+    "/clientes",
+    "/projetos",
+    "/pagamentos",
+    "/planos",
+    "/interacoes",
+}
+
+
 def app(environ, start_response):
     path = environ.get("PATH_INFO", "")
 
@@ -10,9 +20,9 @@ def app(environ, start_response):
     elif path.startswith("/api/"):
         path = path[4:]
 
-    # Mantém a raiz como /
-    # Para as demais rotas, adiciona / no final.
-    if path != "/" and not path.endswith("/"):
+    # Adiciona "/" somente nas rotas de coleção.
+    # Rotas com ID, como /leads/71, devem permanecer sem "/".
+    if path in COLLECTION_ROUTES:
         path += "/"
 
     environ["PATH_INFO"] = path
