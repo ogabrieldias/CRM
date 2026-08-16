@@ -2,6 +2,9 @@ Se não abrir no XAMPP basta rodar um: netstat -ano | findstr 3306
 no cmd, pegar o PID e matar a tarefa
 
 Precisa rodar antes py -m pip install flask-cors
+Pra rodar o backend local: python -m flask --app backend.app run --port 8000
+
+Pra rodar o frontend local: cd frontend && npm run dev
 
 
 Criando banco de dados
